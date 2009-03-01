@@ -8,7 +8,7 @@ import java.awt.Fontimport javax.swing.UIManagerimport javax.swing.JEditorPane
  * has a size which defines the text size of the entire block
  * para, banner, ...
  */
-// TODO use xhtmlrenderer for html rendering
+// TODO use xhtmlrenderer for html rendering?
 public class TextBlock extends ComponentElement {
 
 	private static final Font FONT = UIManager.getFont("Label.font")
@@ -18,6 +18,8 @@ public class TextBlock extends ComponentElement {
 	protected JComponent createComponent() {
 		JTextPane textPane = new JTextPane()
 		textPane.contentType = "text/html"
+		// set the initial text, otherwise preferred size is incorrect
+		textPane.text = "<html><body>&nbsp</body></html>"
 		
 		// style the JTextPane as a JLabel
 		textPane.putClientProperty(JTextPane.HONOR_DISPLAY_PROPERTIES, true);
@@ -96,12 +98,12 @@ public class TextBlock extends ComponentElement {
 	public void update() {
 		SwingUtilities.invokeLater({
 			String html = "<html><body>"
-			if(styles().align == 'center') {
-				html += "<center>"
+			if(styles().align) {
+				html += "<div style='text-align: ${styles().align}'>"
 			}
 			contents.each({fragment -> html += fragment.htmlFragment})
-			if(styles().align == 'center') {
-				html += "</center>"
+			if(styles().align) {
+				html += "</div>"
 			}
 			html += "</body></html>"
 			
