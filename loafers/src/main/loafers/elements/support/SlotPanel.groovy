@@ -27,6 +27,6 @@ public class SlotPanel extends JPanel {
         
         graphics.dispose()
         
-        super.paintChildren(g)
+        super.paint(g)
     }
 }
