@@ -39,10 +39,10 @@ public class Window implements Stylable {
     public void style(Map styles) {
     	frame.title = styles.title
     	
-    	int width = styles.width ? styles.width : 300
-    	int height = styles.height ? styles.height : 200
-    			
-    	frame.size = [width, height]
+//    	int width = styles.width ? styles.width : 300
+//    	int height = styles.height ? styles.height : 200
+//    			
+//    	frame.size = [width, height]
     	
     	this.styles = styles
     }

@@ -20,7 +20,7 @@ Shoes.app("Shoes") {
 	
 	stack(width:"60%") {
 		background olive
-		caption "right part, 60%", align:"right", width:"100%"
+		caption "right part, 60%", align:"right", width:"100%",kerning:"10px"
 		para "The right part will always be 60% of its parents width", align:"justify"
 		para "A flow of paras inside this stack:"
 		flow {

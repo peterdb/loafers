@@ -26,14 +26,4 @@ public abstract class ComponentElement extends Element {
 	public toggle() {
 		getComponent().visible = !component.visible
 	}
-	
-	public void style(Map styles) {
-		super.style(styles)
-		
-		if(styles.containsKey('margin')) {
-			int margin = styles.margin
-			
-			getComponent().setBorder(BorderFactory.createEmptyBorder(margin, margin, margin, margin));
-		}
-	}
 }

@@ -10,7 +10,6 @@ import java.util.Map;
 
 import loafers.elements.Element;
 
-
 public abstract class LayoutBase implements LayoutManager2 {
 
 	private Map<Component, Element> constraintsMap = new HashMap<Component, Element>();
@@ -41,6 +40,18 @@ public abstract class LayoutBase implements LayoutManager2 {
 		// not used
 	}
 
+	public Insets determineMargin(Component comp) {
+		if (constraintsMap.containsKey(comp)) {
+			Element element = constraintsMap.get(comp);
+			if (element.styles().containsKey("margin")) {
+				Integer margin = (Integer) element.styles().get("margin");
+				return new Insets(margin, margin, margin, margin);
+			}
+		}
+
+		return new Insets(0, 0, 0, 0);
+	}
+
 	public Dimension determineSize(Container target, Component comp) {
 		if (constraintsMap.containsKey(comp)) {
 			Element element = constraintsMap.get(comp);
@@ -55,7 +66,7 @@ public abstract class LayoutBase implements LayoutManager2 {
 
 		return comp.getPreferredSize();
 	}
-	
+
 	public float getLayoutAlignmentX(Container target) {
 		// not used
 		return 0f;

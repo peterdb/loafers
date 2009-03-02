@@ -8,9 +8,8 @@ import java.awt.Insets;
 import loafers.elements.Element;
 import loafers.elements.Slot;
 
+public class StackLayout extends LayoutBase {
 
-public class StackLayout extends FlowLayout {
-	
 	public Dimension preferredLayoutSize(Container target) {
 		synchronized (target.getTreeLock()) {
 			Dimension dim = new Dimension();
@@ -18,16 +17,19 @@ public class StackLayout extends FlowLayout {
 			for (Component m : target.getComponents()) {
 				if (m.isVisible()) {
 					Dimension d = determineSize(target, m);
-					
-					dim.width = Math.max(dim.width, d.width);
-					dim.height += d.height;
+
+					Insets margin = determineMargin(m);
+
+					dim.width = Math.max(dim.width, d.width + margin.left
+							+ margin.right);
+					dim.height += d.height + margin.top + margin.bottom;
 				}
 			}
-			
+
 			Insets insets = target.getInsets();
 			dim.width += insets.left + insets.right;
 			dim.height += insets.top + insets.bottom;
-			
+
 			return dim;
 		}
 	}
@@ -44,14 +46,22 @@ public class StackLayout extends FlowLayout {
 					Dimension d = determineSize(target, m);
 
 					Element element = getConstraints(m);
-					if(element instanceof Slot && element.styles().get("width") == null) {
+					if (element instanceof Slot
+							&& element.styles().get("width") == null) {
 						d.width = maxwidth;
 					}
+
+					Insets margin = determineMargin(m);
+					y += margin.top;
+
+					System.out.println(m);
+					System.out.println(d);
+					System.out.println(Math.min(d.width, maxwidth)+","+ d.height);
 					
 					m.setSize(Math.min(d.width, maxwidth), d.height);
-					m.setLocation(x, y);
-					
-					y += d.height;
+					m.setLocation(x + margin.left, y);
+
+					y += d.height + margin.bottom;
 				}
 			}
 		}

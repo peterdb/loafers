@@ -17,11 +17,11 @@ Shoes.app("ClipBin") {
 		if (clipText != lastClipText) {
 			// add new entries to the top of the bin
 			bin.prepend(stack() {
-				// background(chartreuse)
+				background(tomato)
 				// border(white, :strokewidth => 3)
 				caption strong(clipNum), ". ", String.format("%tY/%<tm/%<td %<tH:%<tM:%<tS", new Date())
 				para(clipText, margin:20)
-				edit_box clipText, width:1.0, height:50
+				//edit_box clipText, width:1.0, height:50
 			})
 			lastClipText = clipText
 			clipNum = clipNum + 1
