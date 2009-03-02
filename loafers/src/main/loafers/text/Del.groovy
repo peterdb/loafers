@@ -6,6 +6,6 @@ public class Del extends StyledFragment {
 	}
 
 	public String doGetHtmlFragment(String text) {
-		return "<del>${text}</del>"
+		return "<span style=\"text-decoration: line-through;\">${text}</span>"
 	}
 }
