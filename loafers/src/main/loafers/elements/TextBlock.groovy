@@ -98,6 +98,9 @@ public class TextBlock extends ComponentElement {
 	public void update() {
 		SwingUtilities.invokeLater({
 			String html = "<html><body>"
+			if(styles().kerning) {
+				html += "<div style='letter-spacing: ${styles().kerning}'>"
+			}
 			if(styles().align) {
 				html += "<div style='text-align: ${styles().align}'>"
 			}
@@ -105,9 +108,10 @@ public class TextBlock extends ComponentElement {
 			if(styles().align) {
 				html += "</div>"
 			}
+			if(styles().kerning) {
+				html += "</div>"
+			}
 			html += "</body></html>"
-			
-			println html
 			
 			textPane.text = html
 		} as Runnable)
