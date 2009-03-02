@@ -52,7 +52,6 @@ import java.awt.Dimensionimport java.awt.Insetsimport loafers.Stylableimport 
 	
 	public Dimension calculateSize(Dimension parentSize) {
 		Dimension preferredSize = component.getPreferredSize();
-		println this.toString()+preferredSize
 		if (styles().containsKey("width")) {
 			preferredSize.width = processConstraint(styles().get("width"),
 					(int)parentSize.width);
