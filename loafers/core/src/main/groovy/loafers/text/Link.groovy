@@ -13,6 +13,6 @@ public class Link extends StyledFragment {
 	}
 	
 	public void click() {
-		click.call()
+		click.call(this)
 	}
 }
