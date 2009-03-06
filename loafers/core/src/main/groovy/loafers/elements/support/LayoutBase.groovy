@@ -40,13 +40,16 @@ public abstract class LayoutBase implements LayoutManager2 {
 		// not used
 	}
 
-	public Insets determineMargin(Component comp) {
+	public Insets determineMargin(Container target, Component comp) {
 		if (constraintsMap.containsKey(comp)) {
 			Element element = constraintsMap.get(comp);
-			if (element.styles().containsKey("margin")) {
-				Integer margin = (Integer) element.styles().get("margin");
-				return new Insets(margin, margin, margin, margin);
-			}
+			Insets insets = target.getInsets();
+			Dimension parentSize = target.getSize();
+
+			parentSize.width = parentSize.width - insets.left - insets.right;
+			parentSize.height = parentSize.height - insets.top - insets.bottom;
+			
+			return element.calculateMargin(parentSize);
 		}
 
 		return new Insets(0, 0, 0, 0);

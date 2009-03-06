@@ -37,14 +37,16 @@ public class FlowLayout extends LayoutBase {
 
 					if (m.isVisible()) {
 						Dimension d = determineSize(target, m);
+						
+						Insets margin = determineMargin(target, m);
 
-						if ((x == 0) || ((x + d.width) <= maxwidth)) {
-							x += d.width;
-							rowh = Math.max(rowh, d.height);
+						if ((x == 0) || ((x + margin.left + d.width + margin.right) <= maxwidth)) {
+							x += margin.left + d.width + margin.right;
+							rowh = Math.max(rowh, margin.top + d.height + margin.bottom);
 						} else {
-							x = d.width;
+							x = margin.left + d.width + margin.right;
 							y += rowh;
-							rowh = d.height;
+							rowh = margin.top + d.height + margin.bottom;
 						}
 					}
 				}
@@ -58,8 +60,10 @@ public class FlowLayout extends LayoutBase {
 					if (m.isVisible()) {
 						Dimension d = determineSize(target, m);
 
-						dim.height = Math.max(dim.height, d.height);
-						dim.width += d.width;
+						Insets margin = determineMargin(target, m);
+
+						dim.height = Math.max(dim.height, margin.top + d.height + margin.bottom);
+						dim.width += margin.left + d.width + margin.right;
 					}
 				}
 			}
@@ -76,8 +80,10 @@ public class FlowLayout extends LayoutBase {
 		for (int i = rowStart; i < rowEnd; i++) {
 			Component m = target.getComponent(i);
 			if (m.isVisible()) {
-				m.setLocation(x, y);
-				x += m.getWidth();
+				Insets margin = determineMargin(target, m);				
+				
+				m.setLocation(x+margin.left, y+margin.right);
+				x += m.getWidth()+margin.right;
 			}
 		}
 	}
@@ -89,7 +95,7 @@ public class FlowLayout extends LayoutBase {
 			int maxheight = target.getHeight() - (insets.top + insets.bottom);
 
 			int nmembers = target.getComponentCount();
-			int x = 0;
+			int x = insets.left;
 			int y = insets.top;
 			int rowh = 0;
 			int start = 0;
@@ -104,18 +110,20 @@ public class FlowLayout extends LayoutBase {
 				if (m.isVisible()) {
 					Dimension d = determineSize(target, m);
 
-					if ((x == 0) || ((x + d.width) <= maxwidth)) {
-						x += d.width;
-						rowh = Math.max(rowh, d.height);
+					Insets margin = determineMargin(target, m);
+					
+					if ((x == 0) || ((x + margin.left + d.width + margin.right) <= maxwidth)) {
+						x += margin.left + d.width + margin.right;
+						rowh = Math.max(rowh, margin.top + d.height + margin.bottom);
 					} else {
 						setHeightOnSlots(slotsOnCurrentRow, rowh);
 
 						// wrap
-						moveComponents(target, insets.left, y, maxwidth - x,
-								start, i);
-						x = d.width;
+						moveComponents(target, insets.left, (int)y, (int)(maxwidth - x),
+								(int)start, i);
+						x = insets.left + margin.left + d.width + margin.right;
 						y += rowh;
-						rowh = d.height;
+						rowh = margin.top + d.height + margin.bottom;
 						start = i;
 					}
 

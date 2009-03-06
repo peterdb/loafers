@@ -15,9 +15,6 @@ public class Animation extends BaseTimer {
 	protected void doStart(Timer timer, Closure trigger) {
 		timer.schedule( {
 			if(!isPaused()) {
-				if(frame > fps) {
-					frame = 1
-				}
 				trigger(frame)
 				frame++
 			}

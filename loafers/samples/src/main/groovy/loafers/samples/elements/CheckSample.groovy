@@ -13,7 +13,7 @@ Shoes.app("Check Sample") {
 		}
 
 		button("What's been checked?") {
-			def selected = map.collect({ c, name -> if (c.checked) { name } }).findAll({it})
+			def selected = map.collect({ c, name -> if (c.checked) { return name } }).findAll({ it })
 			alert("You selected: " + selected.join(', '))
 		}
 	}

@@ -1,7 +1,8 @@
 package loafers.elements;
 
 import javax.swing.JComponent;
-import javax.swing.BorderFactoryimport java.awt.Component
+import javax.swing.BorderFactoryimport java.awt.Component
+import java.awt.Dimension
 public abstract class ComponentElement extends Element {
 	private JComponent component
 	
@@ -11,6 +12,10 @@ public abstract class ComponentElement extends Element {
 			assert component != null, "createComponent cannot return null"
 		}
 		return component
+	}
+	
+	protected Dimension getPreferredSize(Dimension parentSize) {
+		return component.getPreferredSize()
 	}
 	
 	protected abstract JComponent createComponent();

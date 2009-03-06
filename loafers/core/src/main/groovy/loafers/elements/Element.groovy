@@ -1,6 +1,7 @@
 package loafers.elements
 
-import java.awt.Dimensionimport java.awt.Insetsimport loafers.Stylableimport java.math.BigDecimalpublic abstract class Element implements Stylable {
+import java.awt.Dimensionimport java.awt.Insetsimport loafers.Stylableimport java.math.BigDecimal
+public abstract class Element implements Stylable {
 	private Slot parent
 	private Map styles = [:]
 	
@@ -51,7 +52,7 @@ import java.awt.Dimensionimport java.awt.Insetsimport loafers.Stylableimport 
 	}
 	
 	public Dimension calculateSize(Dimension parentSize) {
-		Dimension preferredSize = component.getPreferredSize();
+		Dimension preferredSize = getPreferredSize(parentSize);
 		if (styles().containsKey("width")) {
 			preferredSize.width = processConstraint(styles().get("width"),
 					(int)parentSize.width);
@@ -65,9 +66,23 @@ import java.awt.Dimensionimport java.awt.Insetsimport loafers.Stylableimport 
 		return preferredSize;
 	}
 	
+	protected Dimension getPreferredSize(Dimension parentSize) {
+		return new Dimension(0,0)
+	}
+	
+	public Insets calculateMargin(Dimension parentSize) {
+		if (styles().containsKey("margin")) {
+			Integer margin = (Integer) styles().get("margin");
+			return new Insets(margin, margin, margin, margin);
+		}
+
+		return new Insets(0,0,0,0)
+	}
+	
 	private int processConstraint(Object constraint, int value) {
 		if (constraint instanceof Integer) {
-			return ((Integer) constraint).intValue();
+			int tmp = ((Integer) constraint).intValue();
+			return tmp < 0 ? value + tmp : tmp
 		}
 		
 		if (constraint instanceof String

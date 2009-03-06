@@ -16,6 +16,10 @@ public class Button extends FocusableComponentElement {
 		button.text = text
 	}
 	
+	public String getText() {
+		return button.text
+	}
+	
 	public click(Closure c) {
 		if (currentClick != null) {
 			button.removeActionListener(currentClick as ActionListener)

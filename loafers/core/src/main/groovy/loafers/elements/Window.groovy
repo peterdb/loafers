@@ -38,11 +38,25 @@ public class Window implements Stylable {
     
     public void style(Map styles) {
     	frame.title = styles.title
+
+    	if(styles.width && styles.height) {
+    		frame.size = [(int)styles.width, (int)styles.height]
+    	} else if (styles.width) {
+    		println "jup: ${styles.width}"
+    		frame.pack()
+    		frame.size = [(int)styles.width, (int)frame.size.height]
+    		println "jup: ${frame.size}"
+    	} else if (styles.height) {
+    		frame.pack()
+    		frame.size = [(int)frame.size.width, (int)styles.height]
+    	}
     	
-//    	int width = styles.width ? styles.width : 300
-//    	int height = styles.height ? styles.height : 200
-//    			
-//    	frame.size = [width, height]
+//    	if(styles.width || styles.height) {
+//        	int width = styles.width ? styles.width : 300
+//        	int height = styles.height ? styles.height : 200
+//        			
+//        	frame.size = [width, height]
+//    	}
     	
     	this.styles = styles
     }

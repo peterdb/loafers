@@ -6,13 +6,11 @@ import javax.swing.UIManager/**
  * @author Peter De Bruycker
  */
 public class Shoes {
-    static black = Color.black;
-    static white = Color.white;
-    static red = Color.red;
-    static green = Color.green;
-    static blue = Color.blue;
-	
-    public static App app(String title = "Shoes", Map styles = [:], Closure closure) {
+    public static App app(Map styles, Closure closure) {
+    	return app("Shoes", styles, closure)
+    }
+    
+    public static App app(String title, Map styles = [:], Closure closure) {
         UIManager.setLookAndFeel(new WindowsLookAndFeel())
 
         App app = null
@@ -24,15 +22,13 @@ public class Shoes {
 	        	styles.title = title
 	        }
 	        
-	        ShoesBuilder shoes = new ShoesBuilder()
+	        ShoesBuilder builder = new ShoesBuilder()
 	        
-	        closure.setDelegate(shoes)
+	        closure.setDelegate(builder)
 	        closure.resolveStrategy = Closure.DELEGATE_FIRST
-	        app = shoes.app(styles) { closure() }
+	        app = builder.app(styles) { closure() }
 		} as Runnable)
 		
 		return app
     }
-    
-
 }

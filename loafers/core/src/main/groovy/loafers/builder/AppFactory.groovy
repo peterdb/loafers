@@ -5,21 +5,12 @@ import javax.swing.JFrame
 import java.util.HashMapimport loafers.elements.App
 public class AppFactory extends AbstractFactory  {
     public Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
-    	def title = null
-    	if (value instanceof Map) {
-    		title = value.title
-    	} else {
-    		title = value
-    	}
-    	
-    	if (title == null) {
-    		title = "Shoes"
-    	}
-    
         App app = new App()
         
-        Map styles = new HashMap(attributes)
-        styles.title = title
+        Map styles = value instanceof Map ? new HashMap(value) : new HashMap(attributes)
+        if(!styles.title) {
+        	styles.title = "Shoes"
+        }
         app.style(styles)
         
         return app;
