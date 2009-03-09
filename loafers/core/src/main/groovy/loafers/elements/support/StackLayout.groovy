@@ -29,7 +29,7 @@ public class StackLayout extends LayoutBase {
 			Insets insets = target.getInsets();
 			preferredSize.width += insets.left + insets.right
 			preferredSize.height += insets.top + insets.bottom
-			
+
 			return preferredSize
 		}
 	}

@@ -13,6 +13,11 @@ public abstract class ElementFactory extends AbstractFactory {
 	public final Object newInstance(FactoryBuilderSupport builder, Object name, Object value, Map attributes) throws InstantiationException, IllegalAccessException {
         Element element = elementClass.newInstance()
         
+        // trigger component creation, so that the styling can happen
+        if(element instanceof ComponentElement) {
+        	element.getComponent()
+        }
+        
         Map styles = new HashMap(attributes)
         registerDefaults(value, styles)
     	element.style(styles)

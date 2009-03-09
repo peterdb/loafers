@@ -1,6 +1,6 @@
 package loafers.elements
 
-import javax.swing.JComponentimport loafers.elements.support.SlotPanelimport java.awt.Dimension
+import javax.swing.JComponentimport loafers.elements.support.SlotPanelimport java.awt.Dimensionimport javax.swing.JScrollPane
 import java.awt.event.MouseEventimport java.awt.event.MouseAdapterimport loafers.events.Releaseimport java.awt.Graphicsimport javax.swing.JPanelimport java.awt.LayoutManagerimport java.awt.Graphics2Dimport loafers.events.Clickimport java.awt.event.MouseListener
 /**
  * @author Peter De Bruycker

@@ -1,7 +1,7 @@
 package loafers.elements
 
 import javax.swing.JButton
-import groovy.util.GroovyTestCaseimport org.junit.Test
+import groovy.util.GroovyTestCase
 public class ButtonTest extends GroovyTestCase {
     
     public void testComponent() {
@@ -10,6 +10,17 @@ public class ButtonTest extends GroovyTestCase {
         assert button.component instanceof JButton : "component is not a JButton"
         assert button.button instanceof JButton : "button is not a JButton"
         assert button.component == button.button : "component must be the same as the button"
+    }
+    
+    public void testClickStyle() {
+    	Button button = new Button()
+    	
+    	assert !button.styles.click
+    	
+    	Closure c = { /* empty */ }
+    	
+    	button.click(c)
+    	
     }
     
     public void testClick() {

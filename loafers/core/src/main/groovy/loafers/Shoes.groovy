@@ -6,6 +6,10 @@ import javax.swing.UIManager/**
  * @author Peter De Bruycker
  */
 public class Shoes {
+	public static App app(Closure closure) {
+		return app([:], closure)
+	}
+	
     public static App app(Map styles, Closure closure) {
     	return app("Shoes", styles, closure)
     }

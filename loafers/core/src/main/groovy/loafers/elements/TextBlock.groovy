@@ -2,7 +2,7 @@ package loafers.elements
 
 import javax.swing.event.HyperlinkListener
 import javax.swing.event.HyperlinkEvent
-import java.awt.Fontimport javax.swing.UIManagerimport javax.swing.JEditorPaneimport javax.swing.BorderFactoryimport javax.swing.JTextPaneimport java.awt.Colorimport loafers.text.PlainFragmentimport loafers.text.TextFragmentimport javax.swing.SwingUtilitiesimport java.lang.Runnableimport javax.swing.JComponent
+import java.awt.Fontimport javax.swing.UIManagerimport javax.swing.JEditorPaneimport javax.swing.BorderFactoryimport javax.swing.JTextPaneimport java.awt.Colorimport loafers.text.PlainFragmentimport loafers.text.TextFragmentimport javax.swing.SwingUtilitiesimport java.lang.Runnableimport javax.swing.JComponentimport java.awt.Dimension
 /**
  * A block of text, contains sequences of textclasses
  * has a size which defines the text size of the entire block
@@ -15,9 +15,14 @@ public class TextBlock extends ComponentElement {
 	
 	private List contents = []
 
+	private JTextPane textPane
+	
 	protected JComponent createComponent() {
-		JTextPane textPane = new JTextPane()
+		textPane = new JTextPane()
+		
+		// use html for text rendering
 		textPane.contentType = "text/html"
+		
 		// set the initial text, otherwise preferred size is incorrect
 		textPane.text = "<html><body>&nbsp</body></html>"
 		
@@ -41,7 +46,7 @@ public class TextBlock extends ComponentElement {
 	}
     
     public JTextPane getTextPane() {
-    	return component
+    	return textPane
     }
 	
 	public List contents() {
@@ -96,24 +101,22 @@ public class TextBlock extends ComponentElement {
 	}
 	
 	public void update() {
-		SwingUtilities.invokeLater({
-			String html = "<html><body>"
-			if(styles().kerning) {
-				html += "<div style='letter-spacing: ${styles().kerning}'>"
-			}
-			if(styles().align) {
-				html += "<div style='text-align: ${styles().align}'>"
-			}
-			contents.each({fragment -> html += fragment.htmlFragment})
-			if(styles().align) {
-				html += "</div>"
-			}
-			if(styles().kerning) {
-				html += "</div>"
-			}
-			html += "</body></html>"
-			
-			textPane.text = html
-		} as Runnable)
+		String html = "<html><body>"
+		if(styles().kerning) {
+			html += "<div style='letter-spacing: ${styles().kerning}'>"
+		}
+		if(styles().align) {
+			html += "<div style='text-align: ${styles().align}'>"
+		}
+		contents.each({fragment -> html += fragment.htmlFragment})
+		if(styles().align) {
+			html += "</div>"
+		}
+		if(styles().kerning) {
+			html += "</div>"
+		}
+		html += "</body></html>"
+		
+		textPane.text = html
 	}
 }

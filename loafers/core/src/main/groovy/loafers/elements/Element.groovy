@@ -1,7 +1,7 @@
 package loafers.elements
 
 import java.awt.Dimensionimport java.awt.Insetsimport loafers.Stylableimport java.math.BigDecimal
-public abstract class Element implements Stylable {
+import java.awt.Pointpublic abstract class Element implements Stylable {
 	private Slot parent
 	private Map styles = [:]
 	
@@ -77,6 +77,16 @@ import java.awt.Dimensionimport java.awt.Insetsimport loafers.Stylableimport 
 		}
 
 		return new Insets(0,0,0,0)
+	}
+	
+	// TODO implement positioning
+	public Point calculatePosition(Point location, Dimension parentSize) {
+		if (styles().containsKey("right")) {
+			Dimension size = calculateSize(parentSize);
+			location.x = parentSize.width - styles().right
+		}
+		
+		return location
 	}
 	
 	private int processConstraint(Object constraint, int value) {

@@ -2,10 +2,16 @@ package loafers.elements
 
 import javax.swing.JButtonimport java.awt.event.ActionListenerimport javax.swing.JComponent
 public class Button extends FocusableComponentElement {
-	private Closure currentClick
-
 	protected JComponent createComponent() {
-		return new JButton()
+		JButton button = new JButton()
+		
+		button.addActionListener({ evt -> 
+			if (styles().click) {
+				styles().click(this)
+			} 
+		} as ActionListener)
+		
+		return button
 	}
 	
 	public JButton getButton() {
@@ -21,14 +27,7 @@ public class Button extends FocusableComponentElement {
 	}
 	
 	public click(Closure c) {
-		if (currentClick != null) {
-			button.removeActionListener(currentClick as ActionListener)
-		}
-
-		if (c != null) {
-			currentClick = { c(this) }
-			button.addActionListener(currentClick as ActionListener)
-		}	
+		style(['click':c])
 	}
 	
 	public void style(Map styles) {
