@@ -38,7 +38,12 @@ public class Loafers {
             
             // TODO move this code to App and/or Window
             JFrame frame = app.frame
+
+            if(!styles.containsKey('width') && !styles.containsKey('height')) {
+                frame.pack()
+            }
             
+            // TODO correct place to center the frame?
             frame.setLocationRelativeTo(null)
             
             frame.visible = true
