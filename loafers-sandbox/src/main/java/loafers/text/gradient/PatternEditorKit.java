@@ -14,21 +14,20 @@ import javax.swing.text.ViewFactory;
 
 /**
  * @author Peter De Bruycker
- *
  */
-public class PaintEditorKit extends StyledEditorKit {
+public class PatternEditorKit extends StyledEditorKit {
 
     public ViewFactory getViewFactory() {
-        return new PaintViewFactory();
+        return new PatternViewFactory();
     }
 
-    class PaintViewFactory implements ViewFactory {
+    class PatternViewFactory implements ViewFactory {
 
         public View create(Element elem) {
             String kind = elem.getName();
             if (kind != null) {
                 if (kind.equals(AbstractDocument.ContentElementName)) {
-                    return new PaintLabelView(elem);
+                    return new PatternLabelView(elem);
                 }
                 else if (kind.equals(AbstractDocument.ParagraphElementName)) {
                     return new ParagraphView(elem);

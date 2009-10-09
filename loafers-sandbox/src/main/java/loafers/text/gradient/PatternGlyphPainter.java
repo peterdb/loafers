@@ -1,8 +1,7 @@
 package loafers.text.gradient;
 
-import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
@@ -14,9 +13,9 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.font.LineMetrics;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
 import java.lang.reflect.Field;
 
+import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.GlyphView;
 import javax.swing.text.ParagraphView;
@@ -24,10 +23,9 @@ import javax.swing.text.Position;
 import javax.swing.text.TabExpander;
 import javax.swing.text.View;
 
-import loafers.elements.Element;
 import loafers.paint.Pattern;
 
-public class PaintGlyphPainter extends GlyphView.GlyphPainter {
+public class PatternGlyphPainter extends GlyphView.GlyphPainter {
 
     protected GlyphVector glyphVector;
     protected GlyphVector spaceVector;
@@ -35,8 +33,9 @@ public class PaintGlyphPainter extends GlyphView.GlyphPainter {
     protected Font font;
     protected LineMetrics lm;
     private Pattern pattern;
+    private GlyphView view;
 
-    public PaintGlyphPainter(String text, GlyphView v) {
+    public PatternGlyphPainter(String text, GlyphView v) {
         if (v != null) {
             this.text = text;
             this.font = v.getFont();
@@ -67,12 +66,13 @@ public class PaintGlyphPainter extends GlyphView.GlyphPainter {
         
         // get the pattern
         pattern = (Pattern) v.getAttributes().getAttribute("pattern");
+        this.view =v;
     }
 
     public GlyphView.GlyphPainter getPainter(GlyphView v, int p0, int p1) {
         try {
             String localText = v.getDocument().getText(p0, p1 - p0);
-            return new PaintGlyphPainter(localText, v);
+            return new PatternGlyphPainter(localText, v);
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
@@ -420,13 +420,10 @@ public class PaintGlyphPainter extends GlyphView.GlyphPainter {
     private void drawGlyphVector(Graphics2D graphics, GlyphVector glyphVector, float x, float y) {
         Paint oldPaint = graphics.getPaint();
         
-       Rectangle2D bounds = glyphVector.getVisualBounds();
-        
         if(pattern != null) {
-//            Dimension size = null;
-//            Paint paint = pattern.createPaint(size);
-            
-            graphics.setPaint(new GradientPaint(x, (float) (y - bounds.getHeight()), Color.RED, x, y, Color.BLUE));
+            JTextPane textPane = (JTextPane) view.getAttributes().getAttribute("textPane");
+
+            graphics.setPaint(pattern.createPaint(textPane.getSize()));
         }
 
         graphics.drawGlyphVector(glyphVector, x, y);

@@ -13,9 +13,8 @@ import loafers.paint.Gradient;
 
 /**
  * @author Peter De Bruycker
- * 
  */
-public class Test {
+public class GradientTextTest {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -26,23 +25,24 @@ public class Test {
                     {
                         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+                        final SimpleAttributeSet attrs = new SimpleAttributeSet();
+
                         JTextPane textPane = new JTextPane();
 
-                        final SimpleAttributeSet attrs = new SimpleAttributeSet();
-                        final SimpleAttributeSet normalAttrs = new SimpleAttributeSet();
-                        textPane.setEditorKit(new PaintEditorKit());
+                        textPane.setEditorKit(new PatternEditorKit());
                         StyledDocument doc = (StyledDocument) textPane.getDocument();
                         doc.setCharacterAttributes(0, 1, attrs, true);
                         try {
+                            attrs.addAttribute("textPane", textPane);
                             attrs.addAttribute("pattern", new Gradient(Color.RED, Color.BLACK));
                             StyleConstants.setFontSize(attrs, 48);
                             StyleConstants.setBold(attrs, true);
 
                             doc.insertString(doc.getLength(), "just testing", attrs);
                         } catch (Exception e) {
-
+                            e.printStackTrace();
                         }
-                        
+
                         add(textPane);
 
                         pack();
