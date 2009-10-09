@@ -1,4 +1,4 @@
-package loafers.elements.support;
+package loafers.text.gradient;
 
 import java.awt.Color;
 import java.awt.Font;

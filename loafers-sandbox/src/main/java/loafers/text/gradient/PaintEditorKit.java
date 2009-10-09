@@ -1,4 +1,4 @@
-package loafers.elements.support;
+package loafers.text.gradient;
 
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.BoxView;
