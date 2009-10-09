@@ -21,9 +21,9 @@ import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 import javax.swing.JPanel;
 
+import loafers.core.LoafersClosureDelegate;
 import loafers.elements.support.SlotPanel;
 import loafers.events.Click;
-import loafers.LoafersClosureDelegate;
 import loafers.art.AbstractShape;
 import loafers.events.Release;
 

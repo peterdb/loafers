@@ -2,7 +2,7 @@ package loafers.builder
 
 import groovy.util.GroovyTestCase;
 
-import loafers.LoafersClosureDelegate;
+import loafers.core.LoafersClosureDelegate;
 import loafers.elements.Slot
 import loafers.elements.Flow
 import loafers.elements.Button

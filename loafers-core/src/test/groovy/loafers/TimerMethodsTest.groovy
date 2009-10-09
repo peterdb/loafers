@@ -1,5 +1,7 @@
 package loafers;
 
+import loafers.core.TimerMethods;
+
 
 /**
  * Testcase for TimerMethods

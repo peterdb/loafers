@@ -4,9 +4,9 @@ import javax.swing.event.HyperlinkListener
 import javax.swing.event.HyperlinkEvent
 import javax.swing.event.HyperlinkEvent.EventType;
 import java.awt.Fontimport javax.swing.UIManagerimport javax.swing.JEditorPaneimport javax.swing.BorderFactoryimport javax.swing.JTextPaneimport java.awt.Color
+import loafers.core.ColorMethods;
 import loafers.text.CompositeFragment;
 
-import loafers.ColorMethods;
 import loafers.text.Link;
 import loafers.text.PlainFragmentimport loafers.text.TextFragmentimport javax.swing.SwingUtilitiesimport java.lang.Runnableimport java.util.Map;
 

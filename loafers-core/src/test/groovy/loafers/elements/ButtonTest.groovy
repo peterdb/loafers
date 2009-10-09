@@ -2,7 +2,7 @@ package loafers.elements
 
 import javax.swing.JButton
 
-import loafers.LoafersClosureDelegate;
+import loafers.core.LoafersClosureDelegate;
 import groovy.util.GroovyTestCase
 public class ButtonTest extends GroovyTestCase {
     

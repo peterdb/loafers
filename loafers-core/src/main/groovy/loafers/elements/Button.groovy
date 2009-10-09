@@ -4,7 +4,8 @@ import java.util.Map;
 
 import javax.swing.JButton;
 
-import loafers.LoafersClosureDelegate;
+import loafers.core.LoafersClosureDelegate;
+
 import javax.swing.JComponent;
 import java.awt.event.ActionListener;
 

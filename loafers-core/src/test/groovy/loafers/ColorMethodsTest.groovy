@@ -2,6 +2,8 @@ package loafers
 
 import java.awt.Color
 
+import loafers.core.ColorMethods;
+
 /**
  * Testcase for ColorMethods.
  * 
