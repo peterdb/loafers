@@ -67,12 +67,4 @@ public class LoafersClosureDelegate {
         return App.currentApp.mouse
     }
 
-//    public Object missingProperty(String name) {
-//        return App.currentApp.getProperty(name)
-//    }
-//
-//    public void missingProperty(String name, Object value) {
-//        return App.currentApp.setProperty(name, value)
-//    }
-
 }
