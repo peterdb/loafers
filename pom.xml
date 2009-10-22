@@ -10,7 +10,7 @@
 
   <name>Loafers - Umbrella Project</name>
   <description>TODO</description>
-  <url>http://todo</url>
+  <url>http://loafers.googlecode.com</url>
 
   <licenses>
     <license>
@@ -98,6 +98,62 @@
         </plugin>
       </plugins>
     </pluginManagement>
+	
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.groovy.maven</groupId>
+        <artifactId>gmaven-plugin</artifactId>
+      </plugin>
+	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <configuration>
+          <additionalProjectnatures>
+            <projectnature>org.eclipse.jdt.groovy.core.groovyNature</projectnature>
+          </additionalProjectnatures>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-resource</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-resource</goal>
+            </goals>
+            <configuration>
+			  <resources>
+                <resource>
+                  <directory>src/main/groovy</directory>
+                  <includes>
+                    <include>**/*.groovy</include>
+                  </includes>
+                </resource>
+			  </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>add-test-resource</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-test-resource</goal>
+            </goals>
+            <configuration>
+			  <resources>
+                <resource>
+                  <directory>src/test/groovy</directory>
+                  <includes>
+                    <include>**/*.groovy</include>
+                  </includes>
+                </resource>
+			  </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 
   <dependencyManagement>
@@ -106,7 +162,7 @@
       <dependency>
         <groupId>org.codehaus.groovy</groupId>
         <artifactId>groovy-all</artifactId>
-        <version>1.6.4</version>
+        <version>1.7-beta-1</version>
         <exclusions> <!-- for some reason, the following dependencies aren't marked as optional in groovy-all POM -->
           <exclusion>
             <groupId>junit</groupId>
@@ -168,6 +224,7 @@
       <modules>
         <module>loafers-core</module>
         <module>loafers-examples</module>
+        <module>loafers-benchmarks</module>
         <module>loafers-sandbox</module>
       </modules>
     </profile> 

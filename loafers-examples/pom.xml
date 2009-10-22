@@ -13,23 +13,14 @@
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Loafers - Examples</name>
-  <description>TODO</description>
+  <description>The samples.</description>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.groovy.maven</groupId>
-        <artifactId>gmaven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
- 
   <dependencies>
     <!-- Mandatory dependencies for using Loafers -->
     <dependency>
       <groupId>loafers</groupId>
       <artifactId>loafers-core</artifactId>
       <version>0.1-SNAPSHOT</version>
-    </dependency>     
+    </dependency>
   </dependencies>
 </project>

@@ -15,15 +15,6 @@
   <name>Loafers - Sandbox</name>
   <description>TODO</description>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.groovy.maven</groupId>
-        <artifactId>gmaven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
- 
   <dependencies>
     <!-- Mandatory dependencies for using Loafers -->
     <dependency>

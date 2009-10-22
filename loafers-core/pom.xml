@@ -13,17 +13,8 @@
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Loafers - Core</name>
-  <description>TODO</description>
+  <description>All the necessary classes for using Loafers.</description>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.groovy.maven</groupId>
-        <artifactId>gmaven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
- 
   <dependencies>
     <dependency>
       <groupId>org.codehaus.groovy</groupId>
