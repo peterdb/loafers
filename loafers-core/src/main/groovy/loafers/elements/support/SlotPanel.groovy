@@ -9,7 +9,6 @@ import loafers.elements.PaintElementimport javax.swing.JPanel
 
 /**
  * @author Peter De Bruycker
- *
  */
 public class SlotPanel extends JPanel {
     private Slot slot
@@ -24,16 +23,23 @@ public class SlotPanel extends JPanel {
     public void paint(Graphics g) {
         Graphics2D graphics = g.create()
 
+        // TODO are there other rendering hints that need to be set?
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
-        slot.contents.findAll { it instanceof Background }.each { it.paint(slot, graphics) }
-        slot.contents.findAll { it instanceof Border }.each { it.paint(slot, graphics) }
-        
-        super.paintComponents(g)
 
-        // now print the shapes
+        // backgrounds at the bottom 
+        slot.contents.findAll { it instanceof Background }.each { it.paint(slot, graphics) }
+
+        // then the shapes
         slot.shapes.each { shape ->
             shape.paint(graphics)
         }
+
+        // borders go above the shapes
+        slot.contents.findAll { it instanceof Border }.each { it.paint(slot, graphics) }
+
+        // at last paint the components
+        super.paintComponents(g)
+
+        graphics.dispose()
     }
 }
