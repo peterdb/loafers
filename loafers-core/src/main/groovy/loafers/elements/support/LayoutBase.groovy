@@ -10,6 +10,11 @@ import java.util.Map;
 
 import loafers.elements.Element;
 
+/**
+ * Base for FlowLayout and StackLayout.
+ * 
+ * @author Peter De Bruycker
+ */
 public abstract class LayoutBase implements LayoutManager2 {
 
 	private Map<Component, Element> constraintsMap = new HashMap<Component, Element>();
