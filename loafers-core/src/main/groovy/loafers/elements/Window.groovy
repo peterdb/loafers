@@ -1,7 +1,7 @@
 package loafers.elements
 
 import javax.swing.JPanel
-import javax.swing.JFrameimport java.awt.BorderLayoutimport java.awt.Colorimport java.awt.MouseInfoimport groovy.lang.Delegateimport loafers.builder.ElementsBuilder
+import javax.swing.JFrameimport java.awt.BorderLayoutimport java.awt.Colorimport java.awt.MouseInfoimport groovy.lang.Delegateimport loafers.core.ElementBuilderMethods;
 
 /**
  * @author Peter De Bruycker

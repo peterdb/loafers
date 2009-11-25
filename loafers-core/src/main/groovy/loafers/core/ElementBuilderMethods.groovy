@@ -1,9 +1,10 @@
-package loafers.builder
+package loafers.core
 
 import java.util.Map;
 
 import javax.swing.JComponent
 
+import loafers.core.support.SlotMethodsSupport;
 import loafers.events.Release;
 import loafers.elements.Element;
 import loafers.events.Click;
@@ -17,7 +18,6 @@ import loafers.elements.Slot;
 import loafers.elements.SwingElement;
 import loafers.elements.Image;
 import loafers.elements.ListBox;
-import loafers.elements.TextBlock;
 import loafers.elements.Check;
 import loafers.elements.EditLine;
 import loafers.elements.EditBox;
@@ -25,65 +25,12 @@ import loafers.elements.EditBox;
 import loafers.paint.Pattern;
 import loafers.paint.Color;
 
-import loafers.text.Del;
-import loafers.text.Code;
-import loafers.text.Em;
-import loafers.timer.Every;
-import loafers.text.Link;
-import loafers.text.Strong;
-import loafers.text.TextFragment;
-import loafers.text.PlainFragment;
-import loafers.text.CompositeFragment;
+public class ElementBuilderMethods extends SlotMethodsSupport {
 
-public class ElementsBuilder {
-
-    private Slot slot
-    private Closure addStrategy
-
-    public void setSlot(Slot slot) {
-        this.slot = slot
-    }
-
-    public Slot getSlot() {
-        return slot
-    }
-
-    public void setAddStrategy(Closure addStrategy) {
-        this.addStrategy = addStrategy;
-    }
-
-    public Closure getAddStrategy() {
-        return addStrategy;
-    }
-
-    // TODO test to see if the manipulation methods are still necessary here, because the LoafersClosureDelegate also delegates to the slot itself
-    // this means that we can only keep the element creation methods
-    public void prepend(Element target, Closure closure) {
-        slot.prepend(closure)
-    }
-
-    public void before(Element target, Closure closure) {
-        slot.before(target, closure)
-    }
-
-    public void after(Element target, Closure closure) {
-        slot.after(target, closure)
-    }
-
-    public void append(Element target, Closure closure) {
-        slot.append(closure)
+    public ElementBuilderMethods(Slot slot, Closure addStrategy = null) {
+        super(slot, addStrategy)
     }
     
-    private void addElement(Element e) {
-        assert e != null
-
-        if(addStrategy == null) {
-            slot.append(e)
-        } else {
-            addStrategy(e)
-        }
-    }
-
     public Stack stack(Closure content = null) {
         return stack([:], content);
     }
@@ -198,122 +145,6 @@ public class ElementsBuilder {
         addElement(border)
         
         return border
-    }
-
-    public TextBlock banner(Object...content = []) {
-        return banner([:], content)
-    }
-    
-    public TextBlock banner(Map styles, Object...content = []) {
-        return textBlock(content, styles, 48)
-    }
-
-    public TextBlock title(Object...content = []) {
-        return title([:], content)
-    }
-    
-    public TextBlock title(Map styles, Object...content = []) {
-        return textBlock(content, styles, 34)
-    }
-
-    public TextBlock subtitle(Object...content = []) {
-        return subtitle([:], content)
-    }
-    
-    public TextBlock subtitle(Map styles, Object...content = []) {
-        return textBlock(content, styles, 26)
-    }
-
-    public TextBlock tagline(Object...content = []) {
-        return tagline([:], content)
-    }
-    
-    public TextBlock tagline(Map styles, Object...content = []) {
-        return textBlock(content, styles, 18)
-    }
-
-    public TextBlock caption(Object...content = []) {
-        return caption([:], content)
-    }
-    
-    public TextBlock caption(Map styles, Object...content = []) {
-    	return textBlock(content, styles, 14)
-    }
-
-    public TextBlock para(Object...fragments = []) {
-        return para([:], fragments)
-    }
-    
-    public TextBlock para(Map styles, Object...fragments = []) {
-    	return textBlock(fragments, styles, 12)
-    }
-
-    public TextBlock inscription(Object...content = []) {
-        return inscription([:], content)
-    }
-    
-    public TextBlock inscription(Map styles, Object...content = []) {
-        return textBlock(content, styles, 10)
-    }
-
-    private TextBlock textBlock(Object... fragments, Map styles, int size) {
-    	TextBlock textBlock = new TextBlock()
-
-    	if (fragments != null) {
-    		styles.text = createTextFragment(fragments)
-    	}
-    	
-    	if (!styles.size) {
-    		styles.size = size
-    	}
-
-    	textBlock.style(styles)
-    	
-        addElement(textBlock)
-        
-    	return textBlock
-    }
-
-    private TextFragment createTextFragment(Object... fragments) {
-        if(fragments.size() == 1) {
-            if(fragments[0] instanceof TextFragment)  {
-                return fragments[0]
-            }else {
-                return new PlainFragment(fragments[0])
-            }
-        }
-        
-        return new CompositeFragment(fragments.collect{ it ->
-            if(it instanceof TextFragment) {
-                return it
-            } else {
-                return new PlainFragment(it.toString())
-            }
-        })
-    }
-
-    public Strong strong(Object... fragments) {
-        return new Strong(createTextFragment(fragments))
-    }
-
-    public Code code(Object... fragments) {
-        return new Code(createTextFragment(fragments))
-    }
-
-    public Em em(Object... fragments) {
-        return new Em(createTextFragment(fragments))
-    }
-
-    public Del del(Object... fragments) {
-        return new Del(createTextFragment(fragments))
-    }
-
-    public Link link(Object fragment, Closure click = null) {
-        return new Link(createTextFragment(fragment), click)
-    }
-    
-    public Link link(Object... fragments, Closure click = null) {
-        return new Link(createTextFragment(fragments), click)
     }
 
     public Button button(Object text) {

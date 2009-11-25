@@ -1,7 +1,8 @@
-package loafers.builder
+package loafers.core
 
 import groovy.util.GroovyTestCase;
 
+import loafers.core.ElementBuilderMethods;
 import loafers.core.LoafersClosureDelegate;
 import loafers.elements.Slot
 import loafers.elements.Flow
@@ -11,9 +12,9 @@ import loafers.elements.TextBlock
 import loafers.text.Code
 
 
-public class ElementsBuilderTest extends GroovyTestCase {
+public class ElementBuilderMethodsTest extends GroovyTestCase {
 
-    private ElementsBuilder builder
+    private ElementBuilderMethods elementBuilderMethods
     private Slot slot
     
     @Override
@@ -23,30 +24,18 @@ public class ElementsBuilderTest extends GroovyTestCase {
         // trigger slot component creation
         slot.component
         
-        builder = new ElementsBuilder()
-        builder.slot = slot
+        elementBuilderMethods = new ElementBuilderMethods(slot)
     }
 
     public void testPreconditions() {
         assert slot != null
-        assert builder != null
+        assert elementBuilderMethods != null
 
-        assert builder.slot == slot
-    }
-    
-    public void testCode() {
-        Code code = builder.code("test")
-        assert "<code>test</code>" == code.getHtmlFragment()
-
-        Code code2 = builder.code("item1", " ", "item2")
-        assert "<code>item1&nbsp;item2</code>" == code2.getHtmlFragment()
-        
-        Code code3 = builder.code("code", builder.em("em"))
-        assert "<code>code<em>em</em></code>" == code3.getHtmlFragment()
+        assert elementBuilderMethods.slot == slot
     }
     
     public void testButton() {
-        Button button = builder.button("click me")
+        Button button = elementBuilderMethods.button("click me")
         
         assert button != null
         assert button.styles.text == "click me"
@@ -54,24 +43,19 @@ public class ElementsBuilderTest extends GroovyTestCase {
     
     public void testButtonWithClosure(){
         Closure c = { }
-        Button button = builder.button("click me", c);
+        Button button = elementBuilderMethods.button("click me", c);
+        
         assert button != null
         assert button.styles.text == "click me"
         assert button.styles.click == c
     }
     
     public void testButtonWithStyles(){
-        Button button = builder.button("click me", width:1.0, height:1.0);
+        Button button = elementBuilderMethods.button("click me", width:1.0, height:1.0);
+        
         assert button != null
         assert button.styles.text == "click me"
         assert button.styles.width == 1.0
         assert button.styles.height == 1.0
-    }
-
-    public void testPara() {
-        TextBlock para = builder.para("this is the text")
-
-        assert para != null
-        assert para.text == "this is the text"
     }
 }

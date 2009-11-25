@@ -1,4 +1,4 @@
-package loafers
+package loafers.core
 
 import java.awt.Color
 

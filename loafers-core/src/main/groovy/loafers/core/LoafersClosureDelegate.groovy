@@ -2,7 +2,6 @@ package loafers.core;
 
 import groovy.lang.Delegate;
 import groovy.lang.Mixin;
-import loafers.builder.ElementsBuilder;
 import loafers.elements.Element;
 import loafers.elements.Slot;
 import loafers.elements.App;
@@ -32,7 +31,10 @@ public class LoafersClosureDelegate {
     TimerMethods timerMethods = new TimerMethods()
 
     @Delegate
-    ElementsBuilder elementsBuilder = new ElementsBuilder()
+    TextMethods textMethods
+    
+    @Delegate
+    ElementBuilderMethods elementBuilderMethods
 
     @Delegate
     Slot delegateSlot
@@ -47,15 +49,15 @@ public class LoafersClosureDelegate {
     public LoafersClosureDelegate(Slot slot, Closure addStrategy) {
         assert slot != null
 
+        // following methods classes need a slot to operate on
         artMethods = new ArtMethods(slot)
+        textMethods = new TextMethods(slot, addStrategy)
+        elementBuilderMethods = new ElementBuilderMethods(slot, addStrategy)
         
         delegateSlot = slot
-        this.slot = slot
 
         // trigger component creation
         slot.component
-        
-        this.addStrategy = addStrategy
     }
 
     public void exit() {
