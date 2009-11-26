@@ -9,11 +9,6 @@ import java.util.Map;
 
 import groovy.lang.Closure;
 
-import groovy.lang.Closure;
-
-import java.awt.LayoutManager;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +17,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.JPanel;
 
 import loafers.core.LoafersClosureDelegate;
-import loafers.elements.support.SlotPanel;
+import loafers.elements.support.Canvas;
 import loafers.events.Click;
 import loafers.art.AbstractShape;
 import loafers.events.Release;
@@ -41,18 +36,18 @@ public abstract class Slot extends ComponentElement implements KeyListener {
     private Closure keypress
     
     private LayoutManager layout
-    private SlotPanel panel
+    private Canvas canvas
     
     public Slot(LayoutManager layout) {
         this.layout = layout
     }
     
     protected JComponent createComponent() {
-        panel = new SlotPanel(this)
+        canvas = new Canvas(this)
         
-        panel.layout = layout
+        canvas.layout = layout
 
-        panel.addKeyListener(this)
+        canvas.addKeyListener(this)
         
         def mouseEventHandler = [
             mouseClicked: { e ->
@@ -89,9 +84,9 @@ public abstract class Slot extends ComponentElement implements KeyListener {
             }
         ]
 
-        panel.addMouseListener(mouseEventHandler as MouseListener)
+        canvas.addMouseListener(mouseEventHandler as MouseListener)
         
-//        JScrollPane scrollPane = new JScrollPane(panel)
+//        JScrollPane scrollPane = new JScrollPane(canvas)
 //        scrollPane.opaque = false
 //        scrollPane.border = BorderFactory.createEmptyBorder()
 //        
@@ -100,11 +95,11 @@ public abstract class Slot extends ComponentElement implements KeyListener {
 //        
 //        return scrollPane
 
-		return panel
+		return canvas
     }
     
-    public JPanel getPanel() {
-        return panel 
+    public Canvas getCanvas() {
+        return canvas
     }
     
     public void click(Closure click) {
@@ -147,7 +142,7 @@ public abstract class Slot extends ComponentElement implements KeyListener {
 
         shapes.clear()
     	elements.clear()
-    	panel.removeAll()    	
+    	canvas.removeAll()    	
     	update( )
     }
     
@@ -214,10 +209,10 @@ public abstract class Slot extends ComponentElement implements KeyListener {
         elements.add(index, e)
         e.parent = this
 
-        panel.removeAll()
+        canvas.removeAll()
         elements.each { element ->
             if (element instanceof ComponentElement) { 
-                panel.add(element.component, element)
+                canvas.add(element.component, element)
             }  
         }
         
@@ -232,7 +227,7 @@ public abstract class Slot extends ComponentElement implements KeyListener {
         e.parent = null
         
         if(e instanceof ComponentElement) {
-            panel.remove(e.component)
+            canvas.remove(e.component)
         }
         
         update()
@@ -242,8 +237,8 @@ public abstract class Slot extends ComponentElement implements KeyListener {
         // TODO correct place to do this?
         
         SwingUtilities.invokeLater({
-            panel.revalidate()
-            panel.repaint()
+            canvas.revalidate()
+            canvas.repaint()
         } as Runnable)
     }
     

@@ -46,7 +46,7 @@ public abstract class SlotTestCase extends GroovyTestCase {
     	slot.clear()
     	
     	assert [] == slot.contents
-    	assert [] == slot.panel.components
+    	assert [] == slot.canvas.components
 
         assert button.parent == null
         assert textBlock.parent == null
@@ -54,62 +54,62 @@ public abstract class SlotTestCase extends GroovyTestCase {
 
     public void testAppend() {
         assert [] == slot.contents
-        assert [] == slot.panel.components
+        assert [] == slot.canvas.components
         
         slot.append(button)
         assert [button] == slot.contents
-        assert [button.component] == slot.panel.components
+        assert [button.component] == slot.canvas.components
         
         slot.append(textBlock)
         assert [button, textBlock] == slot.contents
-        assert [button.component, textBlock.component] == slot.panel.components
+        assert [button.component, textBlock.component] == slot.canvas.components
     }
 
     public void testPrepend() {
         assert [] == slot.contents
-        assert [] == slot.panel.components
+        assert [] == slot.canvas.components
         
         slot.append(button)
         assert [button] == slot.contents
-        assert [button.component] == slot.panel.components
+        assert [button.component] == slot.canvas.components
         
         slot.prepend(textBlock)
         assert [textBlock, button] == slot.contents
-        assert [textBlock.component, button.component] == slot.panel.components
+        assert [textBlock.component, button.component] == slot.canvas.components
     }
 
     public void testBefore() {
         assert [] == slot.contents
-        assert [] == slot.panel.components
+        assert [] == slot.canvas.components
         
         slot.append(button)
         assert [button] == slot.contents
-        assert [button.component] == slot.panel.components
+        assert [button.component] == slot.canvas.components
         
         slot.before(button, textBlock)
         assert [textBlock, button] == slot.contents
-        assert [textBlock.component, button.component] == slot.panel.components
+        assert [textBlock.component, button.component] == slot.canvas.components
 
         slot.before(button, check)
         assert [textBlock, check, button] == slot.contents
-        assert [textBlock.component, check.component, button.component] == slot.panel.components
+        assert [textBlock.component, check.component, button.component] == slot.canvas.components
     }
 
     public void testAfter() {
         assert [] == slot.contents
-        assert [] == slot.panel.components
+        assert [] == slot.canvas.components
         
         slot.append(button)
         assert [button] == slot.contents
-        assert [button.component] == slot.panel.components
+        assert [button.component] == slot.canvas.components
         
         slot.after(button, textBlock)
         assert [button, textBlock] == slot.contents
-        assert [button.component, textBlock.component] == slot.panel.components
+        assert [button.component, textBlock.component] == slot.canvas.components
 
         slot.after(button, check)
         assert [button, check, textBlock] == slot.contents
-        assert [button.component, check.component, textBlock.component] == slot.panel.components
+        assert [button.component, check.component, textBlock.component] == slot.canvas.components
     }
 
     public void testAppendWithClosure() {
@@ -122,7 +122,7 @@ public abstract class SlotTestCase extends GroovyTestCase {
         }
 
         assert [button, b] == slot.contents
-        assert [button.component, b.component] == slot.panel.components
+        assert [button.component, b.component] == slot.canvas.components
     }
 
     public void testPrependWithClosure() {
@@ -135,7 +135,7 @@ public abstract class SlotTestCase extends GroovyTestCase {
         }
 
         assert [b, button] == slot.contents
-        assert [b.component, button.component] == slot.panel.components
+        assert [b.component, button.component] == slot.canvas.components
     }
 
     public void testBeforeWithClosure() {
@@ -149,7 +149,7 @@ public abstract class SlotTestCase extends GroovyTestCase {
         }
 
         assert [button, b, textBlock] == slot.contents
-        assert [button.component, b.component, textBlock.component] == slot.panel.components
+        assert [button.component, b.component, textBlock.component] == slot.canvas.components
     }
 
     public void testAfterWithClosure() {
@@ -163,7 +163,7 @@ public abstract class SlotTestCase extends GroovyTestCase {
         }
 
         assert [button, b, textBlock] == slot.contents
-        assert [button.component, b.component, textBlock.component] == slot.panel.components
+        assert [button.component, b.component, textBlock.component] == slot.canvas.components
     }
 
     public void testRemove() {
@@ -176,19 +176,19 @@ public abstract class SlotTestCase extends GroovyTestCase {
         assert textBlock.parent == slot
 
         assert [button, check, textBlock] == slot.contents
-        assert [button.component, check.component, textBlock.component] == slot.panel.components
+        assert [button.component, check.component, textBlock.component] == slot.canvas.components
 
         slot.remove(check)
         assert [button, textBlock] == slot.contents
-        assert [button.component, textBlock.component] == slot.panel.components
+        assert [button.component, textBlock.component] == slot.canvas.components
 
         slot.remove(button)
         assert [textBlock] == slot.contents
-        assert [textBlock.component] == slot.panel.components
+        assert [textBlock.component] == slot.canvas.components
 
         slot.remove(textBlock)
         assert [] == slot.contents
-        assert [] == slot.panel.components
+        assert [] == slot.canvas.components
 
         assert button.parent == null
         assert check.parent == null
@@ -202,6 +202,6 @@ public abstract class SlotTestCase extends GroovyTestCase {
             println "jup"
         }
 
-        slot.panel.dispatchEvent new MouseEvent(slot.panel, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, 10, 10, 1, false)
+        slot.canvas.dispatchEvent new MouseEvent(slot.canvas, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, 10, 10, 1, false)
     }
 }
