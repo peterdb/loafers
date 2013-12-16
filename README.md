@@ -15,8 +15,6 @@ Loafers.app {
 }
 ```
 
-Read why Loafers is for you, see more examples?, learn how to write? an application, or [get started right away](GettingStarted.md)!
-
 Build
 ----
 Faker uses [Maven](http://maven.apache.org/download.html "Maven").
